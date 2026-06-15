@@ -26,17 +26,13 @@ except Exception as e:
     st.error(f"Erreur lors du chargement des fichiers de modélisation : {e}")
     st.stop()
 
-# Injection de styles CSS personnalisés pour une esthétique haut de gamme (sans émojis dans le CSS)
+# Injection de styles CSS personnalisés adaptatifs (Supportant les thèmes Clair et Sombre)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
     
     html, body, [class*="css"] {
         font-family: 'Outfit', sans-serif;
-    }
-    
-    .main {
-        background-color: #f8f9fa;
     }
     
     h1 {
@@ -51,23 +47,25 @@ st.markdown("""
     
     .subtitle {
         font-size: 1.25rem;
-        color: #636e72;
+        color: var(--text-color);
+        opacity: 0.8;
         text-align: center;
         margin-bottom: 2.5rem;
     }
     
-    /* Style des cartes */
+    /* Style des cartes adaptatif */
     .card {
-        background: white;
+        background: var(--secondary-background-color, #ffffff);
+        color: var(--text-color, #2d3436);
         padding: 2rem;
         border-radius: 16px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border: 1px solid #e1e8ed;
+        border: 1px solid rgba(128, 128, 128, 0.2);
         margin-bottom: 1.5rem;
     }
     
     .card-title {
-        color: #2d3436;
+        color: var(--text-color, #2d3436);
         font-size: 1.4rem;
         font-weight: 600;
         margin-bottom: 1rem;
@@ -95,7 +93,7 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(108, 92, 231, 0.6) !important;
     }
     
-    /* Métriques de prédiction */
+    /* Métriques de prédiction adaptées */
     .prediction-container {
         background: linear-gradient(135deg, #2d3436, #0f1112);
         color: white;
@@ -123,22 +121,64 @@ st.markdown("""
     
     /* Métriques du modèle */
     .metric-box {
-        background-color: #f1f2f6;
+        background-color: var(--secondary-background-color, #f1f2f6);
         border-left: 5px solid #6c5ce7;
         padding: 1rem;
         border-radius: 8px;
         text-align: center;
+        color: var(--text-color, #2d3436);
+        border-top: 1px solid rgba(128, 128, 128, 0.1);
+        border-right: 1px solid rgba(128, 128, 128, 0.1);
+        border-bottom: 1px solid rgba(128, 128, 128, 0.1);
     }
     
     .metric-num {
         font-size: 1.8rem;
         font-weight: bold;
-        color: #2d3436;
+        color: var(--text-color, #2d3436);
     }
     
     .metric-label {
         font-size: 0.9rem;
-        color: #747d8c;
+        color: var(--text-color, #747d8c);
+        opacity: 0.8;
+    }
+
+    /* Styles pour alertes cliniques adaptatives sans couleurs agressives à fort contraste */
+    .clinical-alert-stress {
+        background-color: rgba(230, 126, 34, 0.12);
+        color: #e67e22;
+        padding: 1.2rem;
+        border-radius: 8px;
+        border-left: 6px solid #e67e22;
+        margin-bottom: 1rem;
+    }
+    
+    .clinical-alert-activity {
+        background-color: rgba(99, 110, 114, 0.12);
+        color: var(--text-color, #636e72);
+        padding: 1.2rem;
+        border-radius: 8px;
+        border-left: 6px solid #636e72;
+        margin-bottom: 1rem;
+    }
+    
+    .clinical-alert-healthy {
+        background-color: rgba(0, 184, 148, 0.12);
+        color: #00b894;
+        padding: 1.2rem;
+        border-radius: 8px;
+        border-left: 6px solid #00b894;
+        margin-bottom: 1rem;
+    }
+    
+    .clinical-alert-disorder {
+        background-color: rgba(231, 76, 60, 0.12);
+        color: #e74c3c;
+        padding: 1.2rem;
+        border-radius: 8px;
+        border-left: 6px solid #e74c3c;
+        margin-bottom: 1rem;
     }
     
     </style>
@@ -251,26 +291,26 @@ with tab1:
             
             if stress_level >= 7.0:
                 st.markdown("""
-                    <div style='background-color: #ffeaa7; color: #d35400; padding: 1.2rem; border-radius: 8px; border-left: 6px solid #e67e22; margin-bottom: 1rem;'>
+                    <div class='clinical-alert-stress'>
                         <strong>Niveau de Stress Très Élevé :</strong> Le modèle indique que votre niveau de stress est un facteur limitant important de votre repos. Pour augmenter votre temps de sommeil profond, des exercices de relaxation en fin de journée sont fortement préconisés.
                     </div>
                 """, unsafe_allow_html=True)
             elif physical_activity < 30:
                 st.markdown("""
-                    <div style='background-color: #dfe6e9; color: #2d3436; padding: 1.2rem; border-radius: 8px; border-left: 6px solid #636e72; margin-bottom: 1rem;'>
+                    <div class='clinical-alert-activity'>
                         <strong>Activité Physique Insuffisante :</strong> Pratiquer au moins 30 minutes d'activité physique modérée par jour aide à réguler les cycles circadiens et améliore la qualité globale de votre sommeil.
                     </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown("""
-                    <div style='background-color: #e3faf2; color: #0f5132; padding: 1.2rem; border-radius: 8px; border-left: 6px solid #00b894; margin-bottom: 1rem;'>
+                    <div class='clinical-alert-healthy'>
                         <strong>Équilibre Sain :</strong> Vos habitudes d'activité physique et de gestion de stress soutiennent une durée et une régularité de sommeil saines. Continuez ainsi.
                     </div>
                 """, unsafe_allow_html=True)
                 
             if sleep_disorder != "None":
                 st.markdown(f"""
-                    <div style='background-color: #fab1a0; color: #c0392b; padding: 1.2rem; border-radius: 8px; border-left: 6px solid #e74c3c;'>
+                    <div class='clinical-alert-disorder'>
                         <strong>Attention :</strong> La présence déclarée de <strong>{sleep_disorder}</strong> perturbe la structure naturelle du sommeil. Un suivi avec un professionnel de santé est recommandé.
                     </div>
                 """, unsafe_allow_html=True)
@@ -329,8 +369,11 @@ with tab2:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("<div class='card-title'>Importance Relatives des Variables (Random Forest)</div>", unsafe_allow_html=True)
         
-        # Génération du graphique de Feature Importance
+        # Génération du graphique de Feature Importance adaptatif au thème sombre/clair
         fig1, ax1 = plt.subplots(figsize=(8, 5))
+        fig1.patch.set_alpha(0.0)  # Fond transparent pour le graphique
+        ax1.patch.set_alpha(0.0)   # Fond transparent pour l'axe
+        
         try:
             importances = model.feature_importances_
             feature_names = scaler.feature_names_in_
@@ -341,9 +384,15 @@ with tab2:
             
             colors = plt.cm.viridis(np.linspace(0.2, 0.8, len(feat_imp_top)))
             feat_imp_top.plot(kind='barh', color=colors, ax=ax1)
-            ax1.set_xlabel("Score d'Importance")
+            
+            # Stylisation des labels et axes pour la lisibilité sur fond clair et sombre
+            ax1.set_xlabel("Score d'Importance", color='#888888', fontsize=11)
+            ax1.tick_params(colors='#888888', labelsize=10)
             ax1.spines['top'].set_visible(False)
             ax1.spines['right'].set_visible(False)
+            ax1.spines['left'].set_color('#555555')
+            ax1.spines['bottom'].set_color('#555555')
+            
             plt.tight_layout()
             st.pyplot(fig1)
         except Exception as e:
