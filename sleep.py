@@ -26,7 +26,7 @@ except Exception as e:
     st.error(f"Erreur lors du chargement des fichiers de modélisation : {e}")
     st.stop()
 
-# Injection de styles CSS personnalisés adaptatifs (Supportant les thèmes Clair et Sombre)
+# Injection de styles CSS pour styliser les éléments de titre et d'alerte cliniques
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
@@ -53,33 +53,13 @@ st.markdown("""
         margin-bottom: 2.5rem;
     }
     
-    /* Titres de section simples et épurés (remplace les boîtes blanches) */
+    /* Titres de section épurés */
     .section-title {
         font-size: 1.4rem;
         font-weight: 600;
         color: var(--text-color, #2d3436);
         margin-top: 1rem;
         margin-bottom: 1.5rem;
-        border-bottom: 2px solid #6c5ce7;
-        padding-bottom: 0.5rem;
-    }
-    
-    /* Style des cartes adaptatif */
-    .card {
-        background: var(--secondary-background-color, #ffffff);
-        color: var(--text-color, #2d3436);
-        padding: 2rem;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(128, 128, 128, 0.2);
-        margin-bottom: 1.5rem;
-    }
-    
-    .card-title {
-        color: var(--text-color, #2d3436);
-        font-size: 1.4rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
         border-bottom: 2px solid #6c5ce7;
         padding-bottom: 0.5rem;
     }
@@ -134,13 +114,11 @@ st.markdown("""
     .metric-box {
         background-color: var(--secondary-background-color, #f1f2f6);
         border-left: 5px solid #6c5ce7;
-        padding: 1rem;
+        padding: 1.2rem;
         border-radius: 8px;
         text-align: center;
         color: var(--text-color, #2d3436);
-        border-top: 1px solid rgba(128, 128, 128, 0.1);
-        border-right: 1px solid rgba(128, 128, 128, 0.1);
-        border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     }
     
     .metric-num {
@@ -192,27 +170,14 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     
-    /* FALLBACK ET AJUSTEMENT ROBUSTE POUR THEME SOMBRE (Navigateur) */
     @media (prefers-color-scheme: dark) {
-        .card {
-            background-color: #1e222b !important;
-            color: #f8f9fa !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
-        }
-        .card-title {
-            color: #f8f9fa !important;
-        }
-        .section-title {
-            color: #f8f9fa !important;
-        }
         .subtitle {
             color: #b2bec3 !important;
         }
         .metric-box {
             background-color: #1e222b !important;
             color: #f8f9fa !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.05) !important;
         }
         .metric-num {
             color: #f8f9fa !important;
@@ -321,36 +286,35 @@ with tab1:
                 </div>
             """, unsafe_allow_html=True)
             
-            # Évaluation synthétique
-            st.markdown("<div class='card'>", unsafe_allow_html=True)
-            st.markdown("<div class='card-title'>Interprétation Clinique Rapide</div>", unsafe_allow_html=True)
-            
-            if stress_level >= 7.0:
-                st.markdown("""
-                    <div class='clinical-alert-stress'>
-                        <strong>Niveau de Stress Très Élevé :</strong> Le modèle indique que votre niveau de stress est un facteur limitant important de votre repos. Pour augmenter votre temps de sommeil profond, des exercices de relaxation en fin de journée sont fortement préconisés.
-                    </div>
-                """, unsafe_allow_html=True)
-            elif physical_activity < 30:
-                st.markdown("""
-                    <div class='clinical-alert-activity'>
-                        <strong>Activité Physique Insuffisante :</strong> Pratiquer au moins 30 minutes d'activité physique modérée par jour aide à réguler les cycles circadiens et améliore la qualité globale de votre sommeil.
-                    </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.markdown("""
-                    <div class='clinical-alert-healthy'>
-                        <strong>Équilibre Sain :</strong> Vos habitudes d'activité physique et de gestion de stress soutiennent une durée et une régularité de sommeil saines. Continuez ainsi.
-                    </div>
-                """, unsafe_allow_html=True)
+            # Évaluation synthétique dans un conteneur natif
+            with st.container(border=True):
+                st.markdown("### Interprétation Clinique Rapide")
                 
-            if sleep_disorder != "None":
-                st.markdown(f"""
-                    <div class='clinical-alert-disorder'>
-                        <strong>Attention :</strong> La présence déclarée de <strong>{sleep_disorder}</strong> perturbe la structure naturelle du sommeil. Un suivi avec un professionnel de santé est recommandé.
-                    </div>
-                """, unsafe_allow_html=True)
-            st.markdown("</div>", unsafe_allow_html=True)
+                if stress_level >= 7.0:
+                    st.markdown("""
+                        <div class='clinical-alert-stress'>
+                            <strong>Niveau de Stress Très Élevé :</strong> Le modèle indique que votre niveau de stress est un facteur limitant important de votre repos. Pour augmenter votre temps de sommeil profond, des exercices de relaxation en fin de journée sont fortement préconisés.
+                        </div>
+                    """, unsafe_allow_html=True)
+                elif physical_activity < 30:
+                    st.markdown("""
+                        <div class='clinical-alert-activity'>
+                            <strong>Activité Physique Insuffisante :</strong> Pratiquer au moins 30 minutes d'activité physique modérée par jour aide à réguler les cycles circadiens et améliore la qualité globale de votre sommeil.
+                        </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.markdown("""
+                        <div class='clinical-alert-healthy'>
+                            <strong>Équilibre Sain :</strong> Vos habitudes d'activité physique et de gestion de stress soutiennent une durée et une régularité de sommeil saines. Continuez ainsi.
+                        </div>
+                    """, unsafe_allow_html=True)
+                    
+                if sleep_disorder != "None":
+                    st.markdown(f"""
+                        <div class='clinical-alert-disorder'>
+                            <strong>Attention :</strong> La présence déclarée de <strong>{sleep_disorder}</strong> perturbe la structure naturelle du sommeil. Un suivi avec un professionnel de santé est recommandé.
+                        </div>
+                    """, unsafe_allow_html=True)
             
         else:
             # Affichage par défaut avant clic
@@ -364,110 +328,110 @@ with tab1:
             """, unsafe_allow_html=True)
 
 with tab2:
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.markdown("<div class='card-title'>Métriques Générales d'Évaluation des Modèles</div>", unsafe_allow_html=True)
-    
-    col_m1, col_m2, col_m3, col_m4 = st.columns(4)
-    with col_m1:
-        st.markdown("""
-            <div class='metric-box'>
-                <div class='metric-num'>0.4487</div>
-                <div class='metric-label'>R² Score (Variance Expliquée)</div>
-            </div>
-        """, unsafe_allow_html=True)
-    with col_m2:
-        st.markdown("""
-            <div class='metric-box'>
-                <div class='metric-num'>0.4293 h</div>
-                <div class='metric-label'>RMSE (Marge Quadratique Moyen)</div>
-            </div>
-        """, unsafe_allow_html=True)
-    with col_m3:
-        st.markdown("""
-            <div class='metric-box'>
-                <div class='metric-num'>0.3257 h</div>
-                <div class='metric-label'>MAE (Écart Absolu Moyen)</div>
-            </div>
-        """, unsafe_allow_html=True)
-    with col_m4:
-        st.markdown("""
-            <div class='metric-box'>
-                <div class='metric-num'>224 / 75</div>
-                <div class='metric-label'>Échantillons Train / Test</div>
-            </div>
-        """, unsafe_allow_html=True)
+    # Conteneur natif adaptatif pour les métriques générales
+    with st.container(border=True):
+        st.markdown("### Métriques Générales d'Évaluation des Modèles")
+        st.write("") # Espacement
         
-    st.markdown("</div>", unsafe_allow_html=True)
+        col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+        with col_m1:
+            st.markdown("""
+                <div class='metric-box'>
+                    <div class='metric-num'>0.4487</div>
+                    <div class='metric-label'>R² Score (Variance Expliquée)</div>
+                </div>
+            """, unsafe_allow_html=True)
+        with col_m2:
+            st.markdown("""
+                <div class='metric-box'>
+                    <div class='metric-num'>0.4293 h</div>
+                    <div class='metric-label'>RMSE (Marge Quadratique Moyen)</div>
+                </div>
+            """, unsafe_allow_html=True)
+        with col_m3:
+            st.markdown("""
+                <div class='metric-box'>
+                    <div class='metric-num'>0.3257 h</div>
+                    <div class='metric-label'>MAE (Écart Absolu Moyen)</div>
+                </div>
+            """, unsafe_allow_html=True)
+        with col_m4:
+            st.markdown("""
+                <div class='metric-box'>
+                    <div class='metric-num'>224 / 75</div>
+                    <div class='metric-label'>Échantillons Train / Test</div>
+                </div>
+            """, unsafe_allow_html=True)
+        
+    st.write("") # Espacement vertical entre sections
     
     col_plot1, col_plot2 = st.columns(2)
     
     with col_plot1:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("<div class='card-title'>Importance Relatives des Variables (Random Forest)</div>", unsafe_allow_html=True)
-        
-        # Génération du graphique de Feature Importance adaptatif au thème sombre/clair
-        fig1, ax1 = plt.subplots(figsize=(8, 5))
-        fig1.patch.set_alpha(0.0)  # Fond transparent pour le graphique
-        ax1.patch.set_alpha(0.0)   # Fond transparent pour l'axe
-        
-        try:
-            importances = model.feature_importances_
-            feature_names = scaler.feature_names_in_
-            feat_imp = pd.Series(importances, index=feature_names).sort_values(ascending=True)
+        with st.container(border=True):
+            st.markdown("### Importance Relative des Variables (Random Forest)")
             
-            # Sélectionner les principales variables pour la clarté
-            feat_imp_top = feat_imp.tail(10)
+            # Génération du graphique de Feature Importance adaptatif au thème sombre/clair
+            fig1, ax1 = plt.subplots(figsize=(8, 5))
+            fig1.patch.set_alpha(0.0)  # Fond transparent pour le graphique
+            ax1.patch.set_alpha(0.0)   # Fond transparent pour l'axe
             
-            colors = plt.cm.viridis(np.linspace(0.2, 0.8, len(feat_imp_top)))
-            feat_imp_top.plot(kind='barh', color=colors, ax=ax1)
-            
-            # Stylisation des labels et axes pour la lisibilité sur fond clair et sombre
-            ax1.set_xlabel("Score d'Importance", color='#888888', fontsize=11)
-            ax1.tick_params(colors='#888888', labelsize=10)
-            ax1.spines['top'].set_visible(False)
-            ax1.spines['right'].set_visible(False)
-            ax1.spines['left'].set_color('#555555')
-            ax1.spines['bottom'].set_color('#555555')
-            
-            plt.tight_layout()
-            st.pyplot(fig1)
-        except Exception as e:
-            st.write(f"Impossible de générer le graphique d'importance : {e}")
-        st.markdown("</div>", unsafe_allow_html=True)
+            try:
+                importances = model.feature_importances_
+                feature_names = scaler.feature_names_in_
+                feat_imp = pd.Series(importances, index=feature_names).sort_values(ascending=True)
+                
+                # Sélectionner les principales variables pour la clarté
+                feat_imp_top = feat_imp.tail(10)
+                
+                colors = plt.cm.viridis(np.linspace(0.2, 0.8, len(feat_imp_top)))
+                feat_imp_top.plot(kind='barh', color=colors, ax=ax1)
+                
+                # Stylisation des labels et axes pour la lisibilité sur fond clair et sombre
+                ax1.set_xlabel("Score d'Importance", color='#888888', fontsize=11)
+                ax1.tick_params(colors='#888888', labelsize=10)
+                ax1.spines['top'].set_visible(False)
+                ax1.spines['right'].set_visible(False)
+                ax1.spines['left'].set_color('#555555')
+                ax1.spines['bottom'].set_color('#555555')
+                
+                plt.tight_layout()
+                st.pyplot(fig1)
+            except Exception as e:
+                st.write(f"Impossible de générer le graphique d'importance : {e}")
         
     with col_plot2:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("<div class='card-title'>Explication Clinique des Résultats</div>", unsafe_allow_html=True)
-        st.markdown("""
-            L'analyse statistique montre que la durée du sommeil est principalement dictée par :
-            
-            1. **Niveau de Stress (33.5%)** : Le stress induit une sécrétion prolongée de cortisol, ce qui perturbe l'endormissement et diminue le sommeil lent profond.
-            2. **Qualité perçue du Sommeil (20.2%)** : Il existe une corrélation directe et bidirectionnelle importante. Dormir une quantité de temps suffisante augmente la qualité perçue, et inversement.
-            3. **Âge de l'individu (15.7%)** : La structure des cycles du sommeil évolue physiologiquement avec l'âge (diminution du besoin brut de sommeil).
-            4. **Niveau d'activité physique (14.2%)** : Favorise la fatigue physique saine et augmente le taux de sommeil profond restaurateur.
-        """)
-        st.markdown("</div>", unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown("### Explication Clinique des Résultats")
+            st.write("")
+            st.markdown("""
+                L'analyse statistique montre que la durée du sommeil est principalement dictée par :
+                
+                1. **Niveau de Stress (33.5%)** : Le stress induit une sécrétion prolongée de cortisol, ce qui perturbe l'endormissement et diminue le sommeil lent profond.
+                2. **Qualité perçue du Sommeil (20.2%)** : Il existe une corrélation directe et bidirectionnelle importante. Dormir une quantité de temps suffisante augmente la qualité perçue, et inversement.
+                3. **Âge de l'individu (15.7%)** : La structure des cycles du sommeil évolue physiologiquement avec l'âge (diminution du besoin brut de sommeil).
+                4. **Niveau d'activité physique (14.2%)** : Favorise la fatigue physique saine et augmente le taux de sommeil profond restaurateur.
+            """)
 
 with tab3:
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.markdown("<div class='card-title'>Plan d'Action Thérapeutique Recommandé</div>", unsafe_allow_html=True)
-    
-    col_c1, col_c2 = st.columns(2)
-    
-    with col_c1:
-        st.markdown("""
-            ### Gestion du Stress et Relaxation
-            Le stress étant la variable à plus fort impact sur la durée de votre repos, voici les étapes conseillées :
-            - **Routine d'extinction des écrans** : Éteignez tout écran 1 heure avant le coucher pour limiter l'impact de la lumière bleue sur la mélatonine.
-            - **Respiration guidée (Cohérence cardiaque)** : Pratiquez la respiration ventrale (méthode 365) pendant 5 minutes avant de dormir pour abaisser le rythme cardiaque.
-            - **Lecture ou écriture** : Journaliser ses pensées du jour permet de décharger l'anxiété accumulée.
-        """)
+    with st.container(border=True):
+        st.markdown("### Plan d'Action Thérapeutique Recommandé")
+        st.write("")
         
-    with col_c2:
-        st.markdown("""
-            ### Activité Physique & Environnement
-            - **Régularité de l'exercice** : Pratiquez une activité physique régulière (marche rapide, vélo, course) de préférence en matinée ou en après-midi. Évitez le sport intensif moins de 3 heures avant le coucher.
-            - **Hygiène de la chambre** : Maintenez la température de la chambre entre 16 et 18 degrés Celsius, dans le noir complet et le silence.
-            - **Alimentation** : Évitez les repas lourds et la caféine après 14h00.
-        """)
-    st.markdown("</div>", unsafe_allow_html=True)
+        col_c1, col_c2 = st.columns(2)
+        with col_c1:
+            st.markdown("""
+                #### Gestion du Stress et Relaxation
+                Le stress étant la variable à plus fort impact sur la durée de votre repos, voici les étapes conseillées :
+                - **Routine d'extinction des écrans** : Éteignez tout écran 1 heure avant le coucher pour limiter l'impact de la lumière bleue sur la mélatonine.
+                - **Respiration guidée (Cohérence cardiaque)** : Pratiquez la respiration ventrale (méthode 365) pendant 5 minutes avant de dormir pour abaisser le rythme cardiaque.
+                - **Lecture ou écriture** : Journaliser ses pensées du jour permet de décharger l'anxiété accumulée.
+            """)
+            
+        with col_c2:
+            st.markdown("""
+                #### Activité Physique & Environnement
+                - **Régularité de l'exercice** : Pratiquez une activité physique régulière (marche rapide, vélo, course) de préférence en matinée ou en après-midi. Évitez le sport intensif moins de 3 heures avant le coucher.
+                - **Hygiène de la chambre** : Maintenez la température de la chambre entre 16 et 18 degrés Celsius, dans le noir complet et le silence.
+                - **Alimentation** : Évitez les repas lourds et la caféine après 14h00.
+            """)
