@@ -47,10 +47,21 @@ st.markdown("""
     
     .subtitle {
         font-size: 1.25rem;
-        color: var(--text-color);
+        color: var(--text-color, #636e72);
         opacity: 0.8;
         text-align: center;
         margin-bottom: 2.5rem;
+    }
+    
+    /* Titres de section simples et épurés (remplace les boîtes blanches) */
+    .section-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-color, #2d3436);
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #6c5ce7;
+        padding-bottom: 0.5rem;
     }
     
     /* Style des cartes adaptatif */
@@ -144,7 +155,7 @@ st.markdown("""
         opacity: 0.8;
     }
 
-    /* Styles pour alertes cliniques adaptatives sans couleurs agressives à fort contraste */
+    /* Styles pour alertes cliniques adaptatives */
     .clinical-alert-stress {
         background-color: rgba(230, 126, 34, 0.12);
         color: #e67e22;
@@ -155,7 +166,7 @@ st.markdown("""
     }
     
     .clinical-alert-activity {
-        background-color: rgba(99, 110, 114, 0.12);
+        background-color: rgba(128, 128, 128, 0.12);
         color: var(--text-color, #636e72);
         padding: 1.2rem;
         border-radius: 8px;
@@ -181,6 +192,39 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     
+    /* FALLBACK ET AJUSTEMENT ROBUSTE POUR THEME SOMBRE (Navigateur) */
+    @media (prefers-color-scheme: dark) {
+        .card {
+            background-color: #1e222b !important;
+            color: #f8f9fa !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+        }
+        .card-title {
+            color: #f8f9fa !important;
+        }
+        .section-title {
+            color: #f8f9fa !important;
+        }
+        .subtitle {
+            color: #b2bec3 !important;
+        }
+        .metric-box {
+            background-color: #1e222b !important;
+            color: #f8f9fa !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        .metric-num {
+            color: #f8f9fa !important;
+        }
+        .metric-label {
+            color: #b2bec3 !important;
+        }
+        .clinical-alert-activity {
+            color: #b2bec3 !important;
+        }
+    }
+    
     </style>
 """, unsafe_allow_html=True)
 
@@ -199,11 +243,7 @@ with tab1:
     col_input, col_result = st.columns([1.1, 0.9])
     
     with col_input:
-        st.markdown("""
-            <div class='card'>
-                <div class='card-title'>Profil Démographique & Habitudes</div>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='section-title'>Profil Démographique & Habitudes</div>", unsafe_allow_html=True)
         
         # Grid interne pour les entrées utilisateur
         sub_col1, sub_col2 = st.columns(2)
@@ -216,11 +256,7 @@ with tab1:
             physical_activity = st.slider("Activité Physique (minutes par jour)", min_value=0, max_value=120, value=60, step=5)
             quality_of_sleep = st.slider("Qualité Perçue du Sommeil (1 à 10)", min_value=1.0, max_value=10.0, value=7.0, step=0.5)
             
-        st.markdown("""
-            <div class='card' style='margin-top: 1rem;'>
-                <div class='card-title'>Situation Médicale & Professionnelle</div>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='section-title' style='margin-top: 1rem;'>Situation Médicale & Professionnelle</div>", unsafe_allow_html=True)
         
         sub_col3, sub_col4 = st.columns(2)
         with sub_col3:
