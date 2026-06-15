@@ -46,21 +46,41 @@ L'analyse de l'importance des variables montre que :
 2. La qualité ressentie du sommeil (Quality of Sleep) contribue à hauteur de 20.2%.
 3. L'âge et le niveau d'activité physique représentent respectivement 15.7% et 14.2% de l'importance du modèle.
 4. Les troubles du sommeil déclarés (Sleep Disorder) et le genre ont un impact minime dans ce jeu de données épuré.
-
 ## Limites et Perspectives
 
 - Le fichier de données est de taille limitée (374 observations). Un échantillon plus large améliorerait la généralisation des modèles.
 - Certaines colonnes physiologiques importantes du jeu de données complet d'origine (comme la pression artérielle, la fréquence cardiaque et le nombre de pas quotidiens) ne sont pas incluses dans ce dataset épuré. Leur ajout permettrait d'augmenter considérablement la précision (R²).
+
+## Application Interactive Streamlit
+
+Une application web interactive est incluse dans ce dépôt (`sleep.py`) pour permettre aux utilisateurs de simuler et prédire leur durée idéale de sommeil à partir de leurs propres informations de santé.
+
+L'application est structurée en trois onglets :
+- **Simulateur & Prédiction** : Un formulaire convivial pour saisir vos données démographiques (âge, genre, stress, activité physique) et estimer instantanément votre durée recommandée de sommeil en heures et en minutes.
+- **Tableau de Bord & Métriques** : Une visualisation de l'importance des variables sous forme de graphique et le rappel des métriques de performance globales du modèle Random Forest.
+- **Conseils Personnalisés** : Un plan d'action et des recommandations d'hygiène de vie adaptés dynamiquement à votre profil.
 
 ## Installation et Utilisation
 
 Pour exécuter ce projet localement :
 
 1. Clonez ce dépôt :
+   ```bash
    git clone https://github.com/NohaBT/Sleep-Data.git
+   ```
 
 2. Installez les dépendances requises :
-   pip install pandas numpy scikit-learn matplotlib seaborn joblib
+   ```bash
+   pip install pandas numpy scikit-learn matplotlib seaborn joblib streamlit
+   ```
 
-3. Lancez l'environnement Jupyter :
+3. Lancez l'environnement Jupyter pour explorer le notebook :
+   ```bash
    jupyter notebook sleep_data.ipynb
+   ```
+
+4. Lancez l'application interactive Streamlit :
+   ```bash
+   streamlit run sleep.py
+   ```
+
