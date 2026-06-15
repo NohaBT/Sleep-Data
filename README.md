@@ -1,5 +1,14 @@
 # Santé du Sommeil et Mode de Vie - Analyse de Régression
 
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.0+-darkgreen.svg)](https://pandas.pydata.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-1.20+-blue.svg)](https://numpy.org/)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.3+-orange.svg)](https://scikit-learn.org/)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-3.5+-blue.svg)](https://matplotlib.org/)
+[![Seaborn](https://img.shields.io/badge/Seaborn-0.12+-blue.svg)](https://seaborn.pydata.org/)
+[![Joblib](https://img.shields.io/badge/Joblib-1.2+-blue.svg)](https://joblib.readthedocs.io/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
+
 Ce projet propose une analyse approfondie des facteurs biologiques et comportementaux qui influencent la durée du sommeil. À l'aide de modèles de Machine Learning de régression, nous étudions l'impact du niveau de stress, de l'âge, de l'activité physique et de la profession sur le temps de repos quotidien.
 
 ## Objectifs du Projet
