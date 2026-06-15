@@ -11,6 +11,14 @@
 
 Ce projet propose une analyse approfondie des facteurs biologiques et comportementaux qui influencent la durée du sommeil. À l'aide de modèles de Machine Learning de régression, nous étudions l'impact du niveau de stress, de l'âge, de l'activité physique et de la profession sur le temps de repos quotidien.
 
+## Contexte Clinique et Expertise Métier
+
+Ce projet a été conçu et réalisé par une **infirmière polyvalente diplômée d'État**. Ce profil médical apporte une double compétence unique :
+- **Expertise clinique** : Une compréhension approfondie des mécanismes physiologiques du sommeil et de l'impact du stress (sécrétion de cortisol) ou des pathologies (apnée du sommeil, insomnie) sur la santé.
+- **Data Science appliquée à la santé** : L'utilisation de techniques d'apprentissage automatique (Machine Learning) pour analyser et nettoyer un jeu de données médicales bruité (anomalies de saisie, outliers cliniques) et en extraire des prédictions robustes.
+
+Cette approche permet de lier la rigueur mathématique des modèles de régression à une interprétation clinique cohérente et exploitable.
+
 ## Objectifs du Projet
 
 - Analyser les relations complexes entre les habitudes de vie et la durée du sommeil.
@@ -46,6 +54,7 @@ L'analyse de l'importance des variables montre que :
 2. La qualité ressentie du sommeil (Quality of Sleep) contribue à hauteur de 20.2%.
 3. L'âge et le niveau d'activité physique représentent respectivement 15.7% et 14.2% de l'importance du modèle.
 4. Les troubles du sommeil déclarés (Sleep Disorder) et le genre ont un impact minime dans ce jeu de données épuré.
+
 ## Limites et Perspectives
 
 - Le fichier de données est de taille limitée (374 observations). Un échantillon plus large améliorerait la généralisation des modèles.
@@ -83,4 +92,3 @@ Pour exécuter ce projet localement :
    ```bash
    streamlit run sleep.py
    ```
-
