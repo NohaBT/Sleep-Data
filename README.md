@@ -21,7 +21,7 @@ Ce projet propose une analyse approfondie des facteurs biologiques et comporteme
 ## Structure du Dépôt
 
 - sleep_data.ipynb : Le notebook Jupyter principal contenant l'analyse exploratoire des données (EDA), le nettoyage, la modélisation et l'évaluation des performances.
-- sleep.py : Script Python contenant le pipeline complet de préparation et de modélisation.
+- sleep.py : Application interactive Web Streamlit pour la prédiction et l'analyse de la durée du sommeil.
 - Sleep_health_and_lifestyle_dataset-dirty.csv : Le jeu de données brut contenant les anomalies à traiter.
 - best_sleep_model.pkl : Le modèle de régression Random Forest final sauvegardé.
 - sleep_scaler.pkl : Le standardiseur de caractéristiques (StandardScaler) associé au modèle.
